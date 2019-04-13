@@ -22,7 +22,7 @@ public class NewCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_card);
 
         // Initialize connection to Google Places API
-        String apiKey = "";
+        String apiKey = BuildConfig.PlacesAPIKey;
 //        Places.initialize(getApplicationContext(), apiKey);
 //        PlacesClient placesClient = Places.createClient(this);
     }
