@@ -15,4 +15,7 @@ public class GiftCard {
     public int getBalance() {
         return this.balance;
     }
+    public String toString() {
+        return "Place: " + this.storeName + "\nBalance: " + this.balance;
+    }
 }
