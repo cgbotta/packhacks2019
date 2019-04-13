@@ -135,11 +135,12 @@ public class MainActivity extends AppCompatActivity {
     public void deleteTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
-        String task = String.valueOf(taskTextView.getText());
+        String card = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
+        String[] colName = {card.substring(0, card.indexOf(" "))};
         db.delete(TaskContract.TaskEntry.TABLE,
                 TaskContract.TaskEntry.COL_NAME + " = ?",
-                new String[]{task});
+               colName);
         db.close();
         updateUI();
     }
