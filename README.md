@@ -4,7 +4,7 @@ An Android app that reminds you when you have a gift card to a store you've just
 
 ## How to use
 
-1. Download the APK to your device and run it to install the  app
+1. Download [the APK](https://github.com/mac-chaffee/packhacks2019/raw/master/gift_card_reminder.apk) to your device and run it to install the  app
 2. Open the app
 3. Click the (+) icon in the top right to add a new card
 4. Enter the name of a company for which you have a gift card (example: "target", "starbucks", "walmart")
