@@ -142,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
         db.delete(CardTable.CardTableEntry.TABLE,
                 CardTable.CardTableEntry.COL_NAME + " = ?",
                colName);
+        db.delete(LocationTable.LocationTableEntry.TABLE,
+                LocationTable.LocationTableEntry.COL_NAME + " = ?",
+                colName);
         db.close();
         updateUI();
     }
