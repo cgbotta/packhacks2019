@@ -282,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
             });
             // Create with default params. Can change them if needed
             LocationRequest request = LocationRequest.create();
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             locationClient.requestLocationUpdates(request, new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
@@ -383,9 +384,8 @@ public class MainActivity extends AppCompatActivity {
         String time = Integer.toString(currentTime);
 
 
-        String strSQL = "UPDATE locations SET time = " + time + " WHERE name = "+ stores.get(0);
-
-
+        String strSQL = "UPDATE locations SET time = " + time + " WHERE name = '"+ stores.get(0) + "'";
+        db.execSQL(strSQL);
         db.close();
     }
 
