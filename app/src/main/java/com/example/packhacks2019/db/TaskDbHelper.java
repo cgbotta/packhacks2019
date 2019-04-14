@@ -17,8 +17,10 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 CardTable.CardTableEntry.COL_NAME + " TEXT NOT NULL, " + CardTable.CardTableEntry.COL_BALANCE + " REAL NOT NULL);";
 
         String createTableLocations = "CREATE TABLE " + LocationTable.LocationTableEntry.TABLE + " ( " +
-                CardTable.CardTableEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                LocationTable.LocationTableEntry.COL_NAME + " TEXT NOT NULL, " + LocationTable.LocationTableEntry.COL_LATITUDE + LocationTable.LocationTableEntry.COL_LONGITUDE + " TEXT NOT NULL, " + " REAL NOT NULL );";
+                LocationTable.LocationTableEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                LocationTable.LocationTableEntry.COL_NAME + " TEXT NOT NULL, " +
+                LocationTable.LocationTableEntry.COL_LATITUDE + " REAL NOT NULL," +
+                LocationTable.LocationTableEntry.COL_LONGITUDE + " REAL NOT NULL);";
 
         db.execSQL(createTableCards);
         db.execSQL(createTableLocations);
