@@ -10,6 +10,7 @@ public class LocationTable {
         public static final String COL_NAME = "name";
         public static final String COL_LATITUDE = "latitude";
         public static final String COL_LONGITUDE = "longitude";
+        public static final String COL_TIMESTAMP = "time";
 
     }
 }

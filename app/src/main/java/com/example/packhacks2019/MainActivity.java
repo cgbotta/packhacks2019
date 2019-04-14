@@ -308,14 +308,18 @@ public class MainActivity extends AppCompatActivity {
         String minLng = Double.toString(locationResult.getLastLocation().getLongitude() - lngDistance);
         String maxLng = Double.toString(locationResult.getLastLocation().getLongitude() + lngDistance);
 
+        Long timeFloat = System.currentTimeMillis() / 1000;
+        int currentTime = Math.round(timeFloat);
+
+
         SQLiteDatabase db = mHelper.getReadableDatabase();
         List<String> nameList = new ArrayList<>();
         Cursor cursor = db.query(
                 true,
                 LocationTable.LocationTableEntry.TABLE,
                 new String[] {LocationTable.LocationTableEntry.COL_NAME},
-                "latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?",
-                new String[] {minLat, maxLat, minLng, maxLng},
+                "latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND time < (? - 7200)",
+                new String[] {minLat, maxLat, minLng, maxLng, Integer.toString(currentTime)},
                 null,
                 null,
                 null,
@@ -371,6 +375,18 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(notificationId++, builder.build());
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        Long timeFloat = System.currentTimeMillis() / 1000;
+        int currentTime = Math.round(timeFloat);
+        String time = Integer.toString(currentTime);
+
+
+        String strSQL = "UPDATE locations SET time = " + time + " WHERE name = "+ stores.get(0);
+
+
+        db.close();
     }
 
 }

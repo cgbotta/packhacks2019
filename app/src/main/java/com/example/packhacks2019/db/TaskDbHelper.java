@@ -20,7 +20,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
                 LocationTable.LocationTableEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 LocationTable.LocationTableEntry.COL_NAME + " TEXT NOT NULL, " +
                 LocationTable.LocationTableEntry.COL_LATITUDE + " REAL NOT NULL," +
-                LocationTable.LocationTableEntry.COL_LONGITUDE + " REAL NOT NULL);";
+                LocationTable.LocationTableEntry.COL_LONGITUDE + " REAL NOT NULL," +
+                LocationTable.LocationTableEntry.COL_TIMESTAMP + " INTEGER NOT NULL DEFAULT 0);";
 
         db.execSQL(createTableCards);
         db.execSQL(createTableLocations);
