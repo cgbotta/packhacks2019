@@ -283,6 +283,8 @@ public class MainActivity extends AppCompatActivity {
             // Create with default params. Can change them if needed
             LocationRequest request = LocationRequest.create();
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            request.setInterval(5000);
+            request.setMaxWaitTime(5000);
             locationClient.requestLocationUpdates(request, new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
