@@ -109,10 +109,15 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String name = String.valueOf(titleBox.getText());
+                                String balance = String.valueOf(balanceBox.getText());
+                                Double actualBalance = Double.valueOf(balance);
+                                if(name == null || name == "" || actualBalance < 0) {
+                                    //TODO ERROR CHECKING
+                                }
+
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
                                 values.put(CardTable.CardTableEntry.COL_NAME, name);
-                                String balance = String.valueOf(balanceBox.getText());
                                 values.put(CardTable.CardTableEntry.COL_BALANCE, balance);
                                 db.insertWithOnConflict(CardTable.CardTableEntry.TABLE,
                                         null,
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String card = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        String[] colName = {card.substring(0, card.indexOf(" "))};
+        String[] colName = {card.substring(0, card.indexOf("Balance:") - 4)};
         db.delete(CardTable.CardTableEntry.TABLE,
                 CardTable.CardTableEntry.COL_NAME + " = ?",
                colName);
