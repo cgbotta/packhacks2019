@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
         if (stores.size() == 2) {
             storesString.append(" and ");
             storesString.append(stores.get(1));
-        } else {
+        } else if (stores.size() > 2) {
             for (int i = 1; i < stores.size() - 1; i++) {
                 storesString.append(", ");
                 storesString.append(stores.get(i));
