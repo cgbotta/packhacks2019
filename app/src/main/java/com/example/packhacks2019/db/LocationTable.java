@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class LocationTable {
 
-    public class TaskEntry implements BaseColumns {
+    public class LocationTableEntry implements BaseColumns {
         public static final String TABLE = "locations";
 
         public static final String COL_NAME = "name";

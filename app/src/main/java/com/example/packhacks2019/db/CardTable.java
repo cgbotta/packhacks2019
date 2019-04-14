@@ -2,9 +2,9 @@ package com.example.packhacks2019.db;
 
 import android.provider.BaseColumns;
 
-public class TaskContract {
+public class CardTable {
 
-    public class TaskEntry implements BaseColumns {
+    public class CardTableEntry implements BaseColumns {
         public static final String TABLE = "cards";
 
         public static final String COL_NAME = "name";

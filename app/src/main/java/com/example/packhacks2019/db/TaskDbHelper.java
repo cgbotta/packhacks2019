@@ -12,13 +12,13 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableCards = "CREATE TABLE " + TaskContract.TaskEntry.TABLE + " ( " +
-                TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TaskContract.TaskEntry.COL_NAME + " TEXT NOT NULL, " + TaskContract.TaskEntry.COL_BALANCE + " REAL NOT NULL);";
+        String createTableCards = "CREATE TABLE " + CardTable.CardTableEntry.TABLE + " ( " +
+                CardTable.CardTableEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CardTable.CardTableEntry.COL_NAME + " TEXT NOT NULL, " + CardTable.CardTableEntry.COL_BALANCE + " REAL NOT NULL);";
 
-        String createTableLocations = "CREATE TABLE " + LocationTable.TaskEntry.TABLE + " ( " +
-                TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                LocationTable.TaskEntry.COL_NAME + " TEXT NOT NULL, " + LocationTable.TaskEntry.COL_LATITUDE + LocationTable.TaskEntry.COL_LONGITUDE + " TEXT NOT NULL, " + " REAL NOT NULL );";
+        String createTableLocations = "CREATE TABLE " + LocationTable.LocationTableEntry.TABLE + " ( " +
+                CardTable.CardTableEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                LocationTable.LocationTableEntry.COL_NAME + " TEXT NOT NULL, " + LocationTable.LocationTableEntry.COL_LATITUDE + LocationTable.LocationTableEntry.COL_LONGITUDE + " TEXT NOT NULL, " + " REAL NOT NULL );";
 
         db.execSQL(createTableCards);
         db.execSQL(createTableLocations);
@@ -26,8 +26,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + LocationTable.TaskEntry.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CardTable.CardTableEntry.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + LocationTable.LocationTableEntry.TABLE);
         onCreate(db);
     }
 }

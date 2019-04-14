@@ -24,7 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.packhacks2019.db.TaskContract;
+import com.example.packhacks2019.db.LocationTable;
+import com.example.packhacks2019.db.CardTable;
 import com.example.packhacks2019.db.TaskDbHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -110,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
                                 String name = String.valueOf(titleBox.getText());
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
-                                values.put(TaskContract.TaskEntry.COL_NAME, name);
+                                values.put(CardTable.CardTableEntry.COL_NAME, name);
                                 String balance = String.valueOf(balanceBox.getText());
-                                values.put(TaskContract.TaskEntry.COL_BALANCE, balance);
-                                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
+                                values.put(CardTable.CardTableEntry.COL_BALANCE, balance);
+                                db.insertWithOnConflict(CardTable.CardTableEntry.TABLE,
                                         null,
                                         values,
                                         SQLiteDatabase.CONFLICT_REPLACE);
@@ -138,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
         String card = String.valueOf(taskTextView.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
         String[] colName = {card.substring(0, card.indexOf(" "))};
-        db.delete(TaskContract.TaskEntry.TABLE,
-                TaskContract.TaskEntry.COL_NAME + " = ?",
+        db.delete(CardTable.CardTableEntry.TABLE,
+                CardTable.CardTableEntry.COL_NAME + " = ?",
                colName);
         db.close();
         updateUI();
@@ -148,12 +149,12 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_NAME, TaskContract.TaskEntry.COL_BALANCE},
+        Cursor cursor = db.query(CardTable.CardTableEntry.TABLE,
+                new String[]{CardTable.CardTableEntry._ID, CardTable.CardTableEntry.COL_NAME, CardTable.CardTableEntry.COL_BALANCE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
-            int nameIdx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_NAME);
-            int balanceIdx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_BALANCE);
+            int nameIdx = cursor.getColumnIndex(CardTable.CardTableEntry.COL_NAME);
+            int balanceIdx = cursor.getColumnIndex(CardTable.CardTableEntry.COL_BALANCE);
             taskList.add(cursor.getString(nameIdx) + "    Balance: $" + cursor.getString(balanceIdx));
         }
 
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void queryPlacesAPI(String name, SQLiteDatabase db) {
+    private void queryPlacesAPI(final String name, final SQLiteDatabase db) {
         String apiKey = BuildConfig.PlacesAPIKey;
         final String url = String.format(
                 Locale.US,
@@ -198,7 +199,14 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject place = results.getJSONObject(i);
                         double latitude = place.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                         double longitude = place.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
-                        // TODO: Add lat/lng to db associated with name
+                        ContentValues values = new ContentValues();
+                        values.put(LocationTable.LocationTableEntry.COL_NAME, name);
+                        values.put(LocationTable.LocationTableEntry.COL_LATITUDE, latitude);
+                        values.put(LocationTable.LocationTableEntry.COL_LONGITUDE, longitude);
+                        db.insertWithOnConflict(LocationTable.LocationTableEntry.TABLE,
+                                null,
+                                values,
+                                SQLiteDatabase.CONFLICT_REPLACE);
                     }
                 } catch (JSONException e ) {
                     // Shouldn't happen if Google's json is consistent
